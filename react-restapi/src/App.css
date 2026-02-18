@@ -1,101 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
 
 :root {
-  --glass: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
   --accent: #ffffff;
-  --text-dim: rgba(255, 255, 255, 0.6);
+  --text-dim: rgba(255, 255, 255, 0.5);
 }
 
-/* Reset and Centering */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  padding: 0;
   font-family: "Plus Jakarta Sans", sans-serif;
   color: white;
   min-height: 100vh;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: flex-start;
-  overflow-x: hidden;
+  justify-content: center; /* Horizontally centers app-container */
 }
 
-/* GIF BACKGROUND FIX */
+/* GIF BACKGROUND FIXED */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background: url("https://raw.githubusercontent.com/ushmaryosep/it242-react-restapi-/refs/heads/main/Your%20Name%20Falling%20GIF%20by%20All%20The%20Anime%20—%20Anime%20Limited.gif") center/cover no-repeat;
-  filter: blur(4px) brightness(0.6); /* Adjusted blur/brightness for visibility */
+  filter: blur(4px) brightness(0.5);
   z-index: -2;
 }
 
-body.dark::before {
-  filter: blur(4px) brightness(0.3);
-}
+body.dark::before { filter: blur(6px) brightness(0.3); }
 
 .app-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center children horizontally */
-  padding: 60px 20px;
-  text-align: center; /* Ensure text is centered */
+  align-items: center; /* Centers all content inside container */
+  padding: 80px 20px;
 }
 
-/* HERO SECTION */
-.hero-header {
-  margin-bottom: 60px;
-}
+/* CINEMATIC TITLE */
+.hero-header { text-align: center; margin-bottom: 60px; }
 
 .hero-title {
   font-family: "Anton", sans-serif;
-  font-size: clamp(3rem, 12vw, 6.5rem);
-  letter-spacing: 10px;
+  font-size: clamp(3rem, 10vw, 6rem);
+  letter-spacing: 8px;
   margin: 0;
-  color: white;
   text-transform: uppercase;
-  animation: float 6s ease-in-out infinite;
+  background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s ease;
 }
 
-.hero-subtitle {
-  font-size: 0.9rem;
-  font-weight: 300;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-top: 15px;
+.hero-title:hover {
+  transform: scale(1.03);
+  text-shadow: 0 0 30px rgba(255,255,255,0.4);
 }
 
-/* GLASS CARD FOCUS */
+/* CENTERED GLASS FORM */
 .glass-wrapper {
   width: 100%;
   max-width: 600px;
   background: var(--glass);
-  backdrop-filter: blur(25px);
+  backdrop-filter: blur(30px);
   border: 1px solid var(--glass-border);
   border-radius: 40px;
-  padding: 50px 40px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  padding: 50px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  transition: 0.4s ease;
 }
 
-.journal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 35px;
-}
+.glass-wrapper:hover { border-color: rgba(255,255,255,0.4); }
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-align: left; /* Align labels to the left of the input */
-}
+.journal-form { display: flex; flex-direction: column; gap: 30px; text-align: left; }
 
 .input-group label {
   font-size: 0.7rem;
@@ -103,99 +82,99 @@ body.dark::before {
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--text-dim);
-  margin-left: 5px;
+  margin-bottom: 10px;
+  display: block;
 }
 
-/* SELECT & DROPDOWN FIX */
+/* DROPDOWN FIX: Black background for options */
 select, textarea {
+  width: 100%;
   padding: 18px;
-  border-radius: 18px;
+  border-radius: 20px;
   border: 1px solid var(--glass-border);
   background: rgba(0, 0, 0, 0.4);
   color: white;
+  font-family: inherit;
   font-size: 1rem;
-  width: 100%;
+  transition: 0.3s;
 }
 
-/* Fix for white font on white background in select options */
-select option {
-  background-color: #1a1a1a;
-  color: white;
-}
+select option { background: #111; color: white; }
 
-textarea {
-  min-height: 140px;
-  resize: none;
-}
+select:hover, textarea:hover { background: rgba(255,255,255,0.05); }
 
-/* EMOJI BUTTONS */
-.emoji-selector {
+/* EMOJI SELECTOR: Single Row Fix */
+.emoji-row {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
 }
 
 .emoji-btn {
   font-size: 1.8rem;
   cursor: pointer;
-  padding: 10px;
-  border-radius: 15px;
-  transition: 0.3s;
-  background: transparent;
-  border: none;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0.4;
+  filter: grayscale(100%);
 }
 
-.emoji-btn.active {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.3);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
+.emoji-btn:hover { transform: scale(1.4); opacity: 1; filter: grayscale(0); }
+
+.emoji-btn.active { opacity: 1; filter: grayscale(0); transform: scale(1.5); }
 
 .save-btn {
   background: white;
   color: black;
   border: none;
   padding: 20px;
-  border-radius: 18px;
+  border-radius: 20px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,255,255,0.3); }
+
+/* ENTRIES DISPLAY */
+.entries-grid {
+  width: 100%;
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.memory-card {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 25px;
+  border: 1px solid var(--glass-border);
   transition: 0.3s ease;
 }
 
-.save-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(255,255,255,0.2);
-}
+.memory-card:hover { transform: translateY(-8px); border-color: white; }
 
-/* THEME SWITCH FIX */
+.card-top { display: flex; justify-content: space-between; margin-bottom: 15px; }
+
 .theme-switch {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: white;
   color: black;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
-  align-items: center; /* Center the icon */
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  z-index: 1000;
-  transition: 0.3s ease;
-}
-
-.theme-switch:hover {
-  transform: scale(1.1);
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  align-items: center; /* Centers the icon icon */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: 0.3s;
 }
