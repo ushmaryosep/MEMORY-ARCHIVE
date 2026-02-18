@@ -8,7 +8,7 @@ function App() {
   const [description, setDescription] = useState("");
   const [darkMode, setDarkMode] = useState(false);
 
-  const emojis = ["😊", "😌", "😢", "🔥", "🌸", "💭", "🌙", "✨"];
+  const emojis = ["🔥", "🌙", "💭", "✨", "🖤", "🌸", "⚡", "😶‍🌫️"];
 
   useEffect(() => {
     fetchEntries();
@@ -40,47 +40,59 @@ function App() {
   };
 
   return (
-    <div className="wrapper">
-      <h1 className="hero">Your Everyday Record</h1>
+    <div className="overlay">
+      <div className="container">
 
-      <form className="journal-box" onSubmit={handleSubmit}>
-        <div className="emoji-picker">
-          {emojis.map((emoji) => (
-            <span
-              key={emoji}
-              className={`emoji ${emotion === emoji ? "selected" : ""}`}
-              onClick={() => setEmotion(emoji)}
-            >
-              {emoji}
-            </span>
+        <h1 className="hero">
+          MEMORY ARCHIVE
+        </h1>
+
+        <form className="journal-box" onSubmit={handleSubmit}>
+
+          <div className="emoji-picker">
+            {emojis.map((emoji) => (
+              <span
+                key={emoji}
+                className={`emoji ${emotion === emoji ? "selected" : ""}`}
+                onClick={() => setEmotion(emoji)}
+              >
+                {emoji}
+              </span>
+            ))}
+          </div>
+
+          <textarea
+            placeholder="Write something cinematic..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+
+          <button type="submit">Save Memory</button>
+        </form>
+
+        <div className="grid">
+          {entries.map((entry) => (
+            <div key={entry.id} className="card">
+              <div className="card-header">
+                <span className="tag">{entry.emotion}</span>
+                <span className="time">
+                  {new Date(entry.created_at).toLocaleString()}
+                </span>
+              </div>
+              <p>{entry.description}</p>
+            </div>
           ))}
         </div>
 
-        <textarea
-          placeholder="Write about your day..."
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+        <button
+          className="theme-toggle"
+          onClick={() => setDarkMode(!darkMode)}
+        >
+          {darkMode ? "☀️" : "🌙"}
+        </button>
 
-        <button type="submit">Save Memory</button>
-      </form>
-
-      <div className="grid">
-        {entries.map((entry) => (
-          <div key={entry.id} className="card">
-            <span className="tag">{entry.emotion}</span>
-            <p>{entry.description}</p>
-          </div>
-        ))}
       </div>
-
-      <button
-        className="theme-toggle"
-        onClick={() => setDarkMode(!darkMode)}
-      >
-        {darkMode ? "☀️" : "🌙"}
-      </button>
     </div>
   );
 }
