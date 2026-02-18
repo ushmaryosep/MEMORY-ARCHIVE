@@ -1,134 +1,253 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+:root {
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --accent: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.6);
+}
 
 body {
   margin: 0;
-  font-family: "Inter", sans-serif;
-  transition: 0.4s ease;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: white;
+  overflow-x: hidden;
+  background: #0a0a0a; /* Fallback */
 }
 
-/* YOUR GIF BACKGROUND */
+/* Kimi No Na Wa Background Optimization */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background: url("https://raw.githubusercontent.com/ushmaryosep/it242-react-restapi-/refs/heads/main/Your%20Name%20Falling%20GIF%20by%20All%20The%20Anime%20—%20Anime%20Limited.gif") center/cover no-repeat;
-  filter: blur(6px) brightness(0.6);
+  filter: brightness(0.5) saturate(1.2);
   z-index: -2;
 }
 
 body.dark::before {
-  filter: blur(6px) brightness(0.35);
+  filter: brightness(0.25) contrast(1.1);
 }
 
 .app-container {
   min-height: 100vh;
-  padding: 80px 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
 }
 
-.glass-wrapper {
-  width: 100%;
-  max-width: 1100px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(25px);
-  border-radius: 30px;
-  padding: 60px;
+/* HEADER ANIMATION */
+.hero-header {
+  text-align: center;
+  margin-bottom: 80px;
+  animation: fadeInDown 1.2s ease;
 }
 
-/* BIG MODERN TITLE */
 .hero-title {
   font-family: "Anton", sans-serif;
-  font-size: 5rem;
-  text-align: center;
-  color: white;
-  letter-spacing: 5px;
-  margin-bottom: 60px;
-  transition: 0.4s ease;
+  font-size: clamp(3rem, 10vw, 7rem);
+  letter-spacing: 12px;
+  margin: 0;
+  background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: float 6s ease-in-out infinite;
 }
 
-.hero-title:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 40px rgba(255,255,255,0.9);
+.hero-subtitle {
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 10px;
 }
 
-/* FORM */
+/* FOCUSED FORM */
+.glass-wrapper {
+  width: 100%;
+  max-width: 650px; /* Thinner width for modern center look */
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 40px;
+  padding: 40px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+}
+
 .journal-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 60px;
+  gap: 30px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  padding-left: 10px;
 }
 
 select, textarea {
-  padding: 18px;
-  border-radius: 15px;
-  border: none;
-  background: rgba(255,255,255,0.2);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: rgba(0,0,0,0.2);
   color: white;
   font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-textarea {
-  min-height: 120px;
-  resize: none;
+select:focus, textarea:focus {
+  outline: none;
+  background: rgba(255,255,255,0.1);
+  border-color: #fff;
+  transform: translateY(-2px);
 }
 
-.emoji-grid {
+/* EMOJI SELECTOR */
+.emoji-selector {
   display: flex;
+  justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
+  padding: 10px 0;
 }
 
-.emoji-item {
-  font-size: 2rem;
+.emoji-btn {
+  font-size: 1.8rem;
   cursor: pointer;
-  transition: 0.3s ease;
+  padding: 10px;
+  border-radius: 15px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: transparent;
+  border: 1px solid transparent;
 }
 
-.emoji-item:hover {
-  transform: scale(1.3);
+.emoji-btn:hover {
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.2);
 }
 
-.active {
-  transform: scale(1.4);
+.emoji-btn.active {
+  background: white;
+  transform: scale(1.3) rotate(5deg);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* CARDS */
+.save-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 22px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.save-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(255,255,255,0.2);
+}
+
+/* ARCHIVE SECTION */
+.archive-title {
+  text-align: center;
+  margin: 100px 0 40px;
+  font-size: 0.8rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
 .entries-grid {
-  column-count: 3;
-  column-gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
 }
 
 .memory-card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  padding: 30px;
+  border-radius: 30px;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-card:hover {
+  transform: translateY(-10px);
   background: rgba(255,255,255,0.15);
-  padding: 25px;
-  border-radius: 20px;
-  margin-bottom: 25px;
-  color: white;
-  display: inline-block;
-  width: 100%;
+  border-color: #fff;
 }
 
 .card-top {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
-  opacity: 0.8;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.timestamp {
-  font-size: 0.75rem;
+.emoji-display { font-size: 1.5rem; }
+.timestamp { font-size: 0.7rem; color: var(--text-dim); font-weight: 600; }
+
+.memory-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  font-weight: 800;
 }
 
-/* THEME BUTTON */
+.memory-card p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* THEME & ANIMATIONS */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .theme-switch {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 40px;
+  right: 40px;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
+  border-radius: 20px;
+  background: white;
+  color: black;
   border: none;
   font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  z-index: 100;
+  transition: 0.3s;
 }
+
+.theme-switch:hover { transform: rotate(15deg) scale(1.1); }
